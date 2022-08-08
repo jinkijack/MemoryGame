@@ -63,11 +63,20 @@ document.addEventListener('DOMContentLoaded', () => {
     function createBoard() {
       for (let i = 0; i < cardArray.length; i++) {
         const card = document.createElement('img')
-        card.setAttribute('src', 'images/blank.png')
+        card.setAttribute('src', cardArray[i].img)
         card.setAttribute('data-id', i)
         card.addEventListener('click', flipCard)
         grid.appendChild(card)
       }
+
+    setTimeout(startGame,2000)
+    }
+    function startGame() {
+      var cards = document.querySelectorAll('img')
+      for (let i = 0; i < cardArray.length; i++) {
+        cards[i].setAttribute('src', 'images/blank.png') 
+      }
+
     }
     
     const showMessage = document.getElementById('show-message')
@@ -79,7 +88,9 @@ document.addEventListener('DOMContentLoaded', () => {
       
       if(optionOneId == optionTwoId) {
         cards[optionOneId].setAttribute('src', 'images/blank.png')
+        cards[optionOneId].removeEventListener('click', flipCard)
         cards[optionTwoId].setAttribute('src', 'images/blank.png')
+        cards[optionTwoId].removeEventListener('click', flipCard)
         showMessage.innerText = 'You have clicked the same image!'
         setTimeout(() => showMessage.innerText = '', 1000)
       }
@@ -96,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         cards[optionOneId].setAttribute('src', 'images/blank.png')
         cards[optionTwoId].setAttribute('src', 'images/blank.png')
-        
+
         showMessage.innerText = 'Sorry, try again'
         setTimeout(() => showMessage.innerText = '', 1000)
       }
